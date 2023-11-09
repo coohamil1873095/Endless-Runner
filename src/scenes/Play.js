@@ -91,6 +91,7 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        score = 0;
         this.scoreText = this.add.text(borderUISize + borderPadding, borderUISize, 'Score: ' + score, this.scoreConfig);
         
         // display high score

@@ -98,6 +98,7 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        score = 0;
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize, 'Score: ' + score, menuConfig);
         
         // display high score
