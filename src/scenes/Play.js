@@ -72,14 +72,9 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
-        // change background color
-        //this.cameras.main.setBackgroundColor('#FFFFFF')
         this.sky = this.add.image(0, 0, 'sky').setOrigin(0);
-        //sky.scaleX = 2;
         this.back = this.add.tileSprite(0, 0, 960, 800, 'back').setOrigin(0);
-        //back.scaleX = 2;
         this.fore = this.add.tileSprite(0, 0, 960, 800,'fore').setOrigin(0);
-        //fore.scaleX = 2;
 
         // add ui bar
         this.add.rectangle(0, 0, game.config.width, borderUISize * 2, 0x000000).setOrigin(0, 0);
@@ -316,7 +311,6 @@ class Play extends Phaser.Scene {
 
     // check for sword collision
     checkSwordCollision(player, enemy) {
-        //player.x < enemy.x + player.width && enemy.x < player.x + 175 && enemy.y < player.y + player.height + 65 && enemy.height + enemy.y > player. y - 65
         if (player.x < enemy.x && enemy.x < player.x + 175 && enemy.y < player.y + player.height + 65 && enemy.height + enemy.y > player. y - 65) {
             return true;
         } 

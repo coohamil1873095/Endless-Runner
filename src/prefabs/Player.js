@@ -13,8 +13,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.isJumping = false;
         this.jumpSpeed = 500;
 
-        
-
         this.sfxJump = scene.sound.add('sfx_jump'); 
     }
 
@@ -42,7 +40,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('slashAnim');
                 this.once('animationcomplete', () => {
                     this.isSlashing = false;
-                    this.anims.play('runAnim');
+                    if (this.isRunning) {
+                        this.anims.play('runAnim');
+                    }
                 })
             }
         }
@@ -52,7 +52,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     endJump() {
         this.isJumping = false;
         this.isRunning = true;
-        this.anims.play('runAnim');
+        if (!this.isSlashing) {
+            this.anims.play('runAnim');
+        }
         this.body.setOffset(25, 25);
     }
 }

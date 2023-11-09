@@ -38,15 +38,10 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
-        // change background color
-        //this.cameras.main.setBackgroundColor('#FFFFFF')
         let sky = this.add.image(0, 0, 'sky').setOrigin(0);
         sky.scaleX = 2;
         let back = this.add.image(0, 0, 'back').setOrigin(0);
-        //back.scaleX = 2;
         let fore = this.add.image(0, 0, 'fore').setOrigin(0);
-        //fore.scaleX = 2;
         let floor = this.add.sprite(0, game.config.height - borderUISize*3.1, 'floor').setOrigin(0);
 
         this.add.rectangle(0, 0, game.config.width, borderUISize * 2, 0x000000).setOrigin(0, 0);
