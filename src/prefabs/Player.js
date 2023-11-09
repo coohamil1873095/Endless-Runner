@@ -15,12 +15,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         
 
-        //this.sfxRocket = scene.sound.add('sfx_rocket');  // add rocket sfx
+        this.sfxJump = scene.sound.add('sfx_jump'); 
     }
 
     update() {
         // jump movement
-        if (keyUP.isDown && !this.isJumping && !this.isSlashing) {
+        if (keyUP.isDown && !this.isJumping && !this.isSlashing && this.y > game.config.height / 2) {
+            this.sfxJump.play();
             this.isJumping = true;
             this.isRunning = false;
             this.body.setVelocityY(this.jumpSpeed * -1);
@@ -34,11 +35,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             else if (this.body.velocity.y > 0 && this.anims.currentAnim.key != 'jumpDown') {
                 this.anims.play('jumpDown');
             }
-        }
-
-        // slash button
-        if (keySpace.isDown && !this.isSlashing) {
-            this.isSlashing = true;
         }
 
         if (this.isSlashing) {
@@ -58,15 +54,5 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.isRunning = true;
         this.anims.play('runAnim');
         this.body.setOffset(25, 25);
-    }
-    
-    death() {
-        //do death stuff
-        console.log("death");
-    }
-
-    reset() {
-        this.isSlashing = false;
-        this.y = game.config.height - borderUISize - borderPadding;
     }
 }

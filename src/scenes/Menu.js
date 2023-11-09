@@ -17,13 +17,28 @@ class Menu extends Phaser.Scene {
             startFrame: 0, 
             endFrame: 1,
         });
+        this.load.spritesheet('obstacle', 'obstacle.png', {
+            frameWidth: 50,
+            frameHeight: 85,
+            startFrame: 0, 
+            endFrame: 1,
+        });
         this.load.image('sky', 'Background/sky.png');
         this.load.image('back', 'Background/background.png');
         this.load.image('fore', 'Background/foreground.png');
         this.load.image('floor', 'Background/floor.png');
+        
+        // load audio
+        this.load.audio('music', 'SFX/music.wav');
+        this.load.audio('sfx_slash', 'SFX/slash.ogg');
+        this.load.audio('sfx_slurp', 'SFX/slurp.wav');
+        this.load.audio('sfx_jump', 'SFX/jump.wav');
+        this.load.audio('sfx_enemy_pain', 'SFX/enemy_pain.wav');
+        this.load.audio('sfx_death', 'SFX/death.wav');
     }
 
     create() {
+
         // change background color
         //this.cameras.main.setBackgroundColor('#FFFFFF')
         let sky = this.add.image(0, 0, 'sky').setOrigin(0);
@@ -62,6 +77,19 @@ class Menu extends Phaser.Scene {
         enemy.scale = 3;
         enemy.anims.play('enemyAnim');
 
+        // animation config
+        this.anims.create({
+            key: 'obstacleAnim',
+            frames: this.anims.generateFrameNumbers('obstacle', {start: 0, end: 1, first: 0}),
+            frameRate: 2,
+            yoyo: true,
+            repeat: -1
+        });
+
+        let obstacle = this.add.sprite(game.config.width / 3, game.config.height - borderUISize*6.8, 'obstacle').setOrigin(0);
+        obstacle.scale = 3;
+        obstacle.anims.play('obstacleAnim');
+
         // menu text
         let menuConfig = {
             fontFamily: 'Courier',
@@ -84,8 +112,10 @@ class Menu extends Phaser.Scene {
         this.timerText = this.add.text(borderUISize + borderPadding*19, borderUISize, "Time: 0", menuConfig);
 
         // show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Light and Dark', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Press Up Arrow to Jump and Space to Attack', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - 192, 'Light and Dark', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - 128, 'Press Up Arrow to Jump and Space to Attack', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - 64, 'Down Arrow to Drop', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'C to see Credits', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press Space To Start', menuConfig).setOrigin(0.5);
@@ -93,15 +123,16 @@ class Menu extends Phaser.Scene {
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        // this.add.rectangle(enemy.x+40, enemy.y + 125, 10, 10, 0x000000);
-        // this.add.rectangle(idle.x+idle.width+40, idle.y + 125, 10, 10, 0x000000);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySpace)) {
             this.scene.start('playScene');
         }
+        if (Phaser.Input.Keyboard.JustDown(keyC)) {
+            this.scene.start('creditsScene');
+        } 
     }
 
 
