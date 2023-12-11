@@ -174,6 +174,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.enemies, () => {
             if (!this.gameOver) {
                 this.player.anims.play('deathAnim');
+                this.player.isRunning = false;
                 this.sound.play('sfx_death');
                 this.totalTime = this.runTime;
                 this.gameOver = true;
@@ -187,6 +188,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.obstacle, () => {
             if (!this.gameOver) {
                 this.player.anims.play('fireDeathAnim');
+                this.player.isRunning = false;
                 this.sound.play('sfx_death');
                 this.totalTime = this.runTime;
                 this.gameOver = true;
@@ -215,6 +217,7 @@ class Play extends Phaser.Scene {
     }
 
     update(time, delta) {
+        //console.log(this.player.x);
         // check if the game is over
         if (!this.gameOver) {
             this.player.update();
